@@ -1,23 +1,25 @@
 // server.js
-const { Pool } = require('pg');
-require('dotenv').config();          // 1. Wczytanie .env
-const express = require('express');  
+const { Pool } = require('pg');      
+require('dotenv').config();
+const express = require('express');
 const cors = require('cors');
 
-const reservationRoutes = require('./routes/reservationRoutes');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 2. Middleware
 app.use(cors());
 app.use(express.json());
 
-// 3. Trasy
+const reservationRoutes = require('./routes/reservationRoutes');
 app.use('/api/reservations', reservationRoutes);
+
 app.get('/', (req, res) => res.send('Serwer działa!'));
 
-// 4. Start serwera
 app.listen(PORT, () => {
-  console.log(`🚀 Serwer działa na porcie ${PORT}`);
+  console.log(`Serwer działa na porcie ${PORT}`);
 });
