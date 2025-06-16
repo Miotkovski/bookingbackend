@@ -1,4 +1,5 @@
 // server.js
+const { Pool } = require('pg');
 require('dotenv').config();          // 1. Wczytanie .env
 const express = require('express');  
 const cors = require('cors');
