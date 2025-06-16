@@ -15,3 +15,5 @@ ENV PORT 8080
 #RUN npm run build
 
 CMD ["npm" , "start"]
+
+EXPOSE 8080
